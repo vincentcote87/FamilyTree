@@ -115,3 +115,15 @@ cousin(X,Y) :-
   (uncle(Z,Y);
    aunt(Z,Y)),
    \+ (X = Y).
+
+% base case of recursion
+ancestor(X,Y) :-
+  parent(X,Y).
+
+% recursive step
+ancestor(X,Y) :-
+  parent(X,Z),
+  ancestor(Z,Y).
+
+descendant(X,Y) :-
+  ancestor(Y,X).

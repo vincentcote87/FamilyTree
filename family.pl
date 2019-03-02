@@ -66,13 +66,13 @@ daughter(X,Y) :-
 brother(X,Y) :-
   son(X,Z),
   parent(Z,Y),
-  \+ (X = Y).
+  X \= Y.
 
 % X is the daughter of the same mother or father of Y
 sister(X,Y) :-
   daughter(X,Z),
   parent(Z,Y),
-  \+ (X = Y).
+  X \= Y.
 
 % X is the father of Y’s father or mother
 grandfather(X,Y) :-
@@ -126,14 +126,15 @@ cousin(X,Y) :-
    daughter(X,Z)),
   (uncle(Z,Y);
    aunt(Z,Y)),
-   \+ (X = Y).
+   X \= Y.
 
 % Y descends from X
-% base case of recursion
+% base case of recursion, when parents of Y are not in the database.
 ancestor(X,Y) :-
   parent(X,Y).
 
-% recursive step
+% recursive step, returns the parents of Y and passes them
+% back recursively.
 ancestor(X,Y) :-
   parent(X,Z),
   ancestor(Z,Y).
